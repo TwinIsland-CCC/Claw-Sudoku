@@ -1,0 +1,3 @@
+/home/flaw/src/cpp/Claw-Sudoku/CMakeFiles/Claw_Sudoku.dir
+/home/flaw/src/cpp/Claw-Sudoku/CMakeFiles/edit_cache.dir
+/home/flaw/src/cpp/Claw-Sudoku/CMakeFiles/rebuild_cache.dir

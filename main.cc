@@ -1,37 +1,23 @@
-#include <stdio.h>
+#include "sol.hpp"
+#include "sudoku.hpp"
 
 int main(void)
 
 {
-  int a = 1, b = 2, c = 3;
-
-  printf("%3d%3d%3d\n", a, b, c);
-
-  {
-    int b = 4;
-
-    int c = 5;
-
-    printf("%3d%3d%3d\n", a, b, c);
-
-    a = b;
-
+  int a[9][9];
+  printf("please input your sudoku\n");
+  int cnt = 0;
+  for (int i = 0; i < 9; i++)
+    for (int j = 0; j < 9; j++)
     {
-      int c = 6;
-
-      c = b;
-
-      printf("%3d%3d%3d\n", a, b, c);
+      scanf("%d", &a[i][j]);
     }
-
-    printf("%3d%3d%3d\n", a, b, c);
-
-    { printf("%3d%3d%3d\n", a, b, c); }
-
-    printf("%3d%3d%3d\n", a, b, c);
+  Sudoku s(a);
+  printf("solving...\n");
+  std::vector<Sudoku> solutions = solve(s);
+  printf("Done\n");
+  for (auto i : solutions)
+  {
+    i.output();
   }
-
-  printf("%3d%3d%3d\n", a, b, c);
-
-  return 0;
 }
