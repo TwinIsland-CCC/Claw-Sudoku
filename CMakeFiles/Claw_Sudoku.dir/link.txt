@@ -1,1 +1,0 @@
-/usr/lib/ccache/bin/c++  -O0 -Wall -g -ggdb CMakeFiles/Claw_Sudoku.dir/src/sol.cc.o CMakeFiles/Claw_Sudoku.dir/src/sudoku.cc.o CMakeFiles/Claw_Sudoku.dir/main.cc.o -o Claw_Sudoku 
