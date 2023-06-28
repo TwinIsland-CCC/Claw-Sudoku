@@ -6,7 +6,6 @@ int main(void)
 {
   int a[9][9];
   printf("please input your sudoku\n");
-  int cnt = 0;
   for (int i = 0; i < 9; i++)
     for (int j = 0; j < 9; j++)
     {
