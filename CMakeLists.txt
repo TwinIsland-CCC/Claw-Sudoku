@@ -14,5 +14,7 @@ add_executable(Claw_Sudoku
         include/parse.hpp 
         include/sol.hpp 
         src/sol.cc 
-        src/sudoku.cc 
+        src/sudoku.cc
+        src/gen.cc
+        src/parse.cc
         main.cc)

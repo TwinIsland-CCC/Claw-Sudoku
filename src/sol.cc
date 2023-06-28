@@ -14,7 +14,7 @@ void cursiveSearch(Sudoku s, int r, int c, std::vector<Sudoku> &solutions)
 {
     if (r > 8)
     {
-        s.output();
+        //s.output();
         solutions.push_back(s);
         return;
     } // reach row 9th means a correct solution
@@ -40,5 +40,4 @@ void cursiveSearch(Sudoku s, int r, int c, std::vector<Sudoku> &solutions)
         else
             cursiveSearch(s, r, c + 1, solutions);
     } // no need to put-in
-    return;
 }

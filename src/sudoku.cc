@@ -20,6 +20,10 @@ bool Sudoku::set(int r, int c, int val)
     }
 }
 
+Sudoku::Sudoku() {
+
+}
+
 Sudoku::Sudoku(int a[9][9])
 {
     for (int i = 0; i < 9; i++)
@@ -54,3 +58,9 @@ void Sudoku::output()
         printf("\n");
     }
 }
+
+int Sudoku::get(int r, int c) {
+    return item[r][c];
+}
+
+
