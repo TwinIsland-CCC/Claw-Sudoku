@@ -15,6 +15,7 @@ using namespace std;
 
 const int SIZE = 9;
 const int BLOCK_SIZE = 3;
+const int STATE_SIZE = 6;
 
 static int DIFF = 0;
 static int NUM_NUM = 25;

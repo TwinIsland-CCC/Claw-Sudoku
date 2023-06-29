@@ -5,10 +5,11 @@
 class Sudoku
 {
 private:
-    int item[9][9] = {0};
-    bool row[9][19] = {0};
-    bool col[9][10] = {0};
-    bool sqr[9][10] = {0};
+  bool isLegal = true;
+  int item[9][9] = {0};
+  bool row[9][10] = {0};
+  bool col[9][10] = {0};
+  bool sqr[9][10] = {0};
 
 public:
     Sudoku();
@@ -21,6 +22,6 @@ public:
     bool isEmpty(int r, int c);
     void output();
     void output(ofstream& out);
-};
+    bool getIsLegal() const { return isLegal; }};
 
 #endif

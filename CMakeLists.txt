@@ -11,10 +11,8 @@ include_directories(include)
 
 add_executable(Claw_Sudoku 
         include/gen.hpp 
-        include/parse.hpp 
         include/sol.hpp 
         src/sol.cc 
         src/sudoku.cc
         src/gen.cc
-        src/parse.cc
         main.cc include/api.hpp src/api.cc)
