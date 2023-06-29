@@ -9,12 +9,12 @@ bool n_trigger = false;
 
 void c_handler(int c) {
     assert(c >= 1 && c <= 1000000);
-    auto sdks = generateSdkFinal(c);
+    auto sdks = fastGenerateSudokuFinal(c);
     for (int j = 0; j < c; j++)
     {
         cout << j + 1 << "th final panel output: "<< endl;
-        sdks[j].output();
-        cout << endl;
+//        sdks[j].output();
+//        cout << endl;
     }
 }
 
@@ -62,7 +62,8 @@ void s_handler(const string& dir) {
 void n_handler(int n) {
     assert(n >= 1 && n < 10000);
     n_trigger = true;
-    auto sdks = generateSdk(n, SOL_NUM);
+//    auto sdks = generateSdk(n, SOL_NUM);
+    auto sdks = fastGenerateSdk(n, SOL_NUM);
     for (int j = 0; j < n; j++)
     {
         cout << j + 1 << "th sudoku puzzle output: "<< endl;

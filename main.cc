@@ -15,34 +15,40 @@ int main(int argc, char* argv[])
 //    }
 //  Sudoku s(a);
 //  Sudoku s = generateSudokuFinal();
-  auto s = generateSdk(1, -1);
+//  auto s = generateSdk(1, -1);
 //  auto s_final = generateSdkFinal(1000);
 //  auto s_fast = fastGenerateSdk(100000);
-  printSudoku(s[0]);
+    auto s_final = fastGenerateSudokuFinal(1000000);
+//  printSudoku(s[0]);
 //  printf("solving...\n");
 //  std::vector<Sudoku> solutions = solve(s[0]);
 //  std::vector<Sudoku> solutions = solve(s[0]);
 //  printf("Done\n");
-//  int index = 0;
-//  for (auto i : solutions)
+//  for (int i = 0; i < solutions.size(); i++)
 //  {
-//    printf("%dth output: \n", index++);
-//    i.output();
+//    printf("%dth output: \n", i);
+//    solutions[i].output();
 //    printf("\n");
 //  }
-  c_handler(20);
-  n_handler(20);
-  s_handler(R"(..\case2.txt)");
-//  for (auto i : s_final)
+//  c_handler(1000000);
+//  n_handler(20);
+//  s_handler(R"(..\case2.txt)");
+//  for (int i = 0; i < s_final.size(); i++)
 //  {
-//    printf("%dth output: \n", index++);
-//    i.output();
+//    printf("%dth output: \n", i);
+//    s_final[i].output();
 //    printf("\n");
 //  }
-//  for (auto i : s_fast)
+  ofstream fin("final.txt");
+  for (int i = 0; i < s_final.size(); i++){
+    fin << i << "th output: " << endl;
+    s_final[i].output(fin);
+    fin << endl;
+  }
+//  for (int i = 0; i < s_fast.size(); i++)
 //  {
-//    printf("%dth output: \n", index++);
-//    i.output();
+//    printf("%dth output: \n", i);
+//    s_fast[i].output();
 //    printf("\n");
 //  }
 }

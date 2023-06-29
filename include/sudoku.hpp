@@ -13,6 +13,7 @@ private:
 public:
     Sudoku();
     explicit Sudoku(int a[9][9]);
+    explicit Sudoku(const vector<vector<int>>& a);
     Sudoku(const Sudoku& sdk);
     bool set(int r, int c, int val);
     int get(int r, int c);

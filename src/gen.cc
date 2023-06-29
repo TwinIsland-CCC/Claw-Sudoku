@@ -43,29 +43,41 @@ vector<Sudoku> generateSdk(int sdk_num, int sol_num){
 }
 
 //根据答案挖空
-vector<Sudoku> fastGenerateSdk(int sdk_num){
+vector<Sudoku> fastGenerateSdk(int sdk_num, int sol_num) {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> distrib(0, SIZE - 1);
-    auto sdk = generateSdk(1, 1);
+    auto sdk = fastGenerateSudokuFinal(sdk_num);
     auto sol = solve(sdk[0]);
     vector<Sudoku> res;
     for(int i = 0; i < sdk_num; i++){
-        Sudoku sudoku = sol[0];
-//        printSudoku(sol[0]);
-//        printf("\n");
-//        printSudoku(sudoku);
         for(int j = 0; j < SPACE_NUM; j++){
             int row = distrib(gen);
             int col = distrib(gen);
-            while (sudoku.isEmpty(row, col)) {
+            while (sdk[i].isEmpty(row, col)) {
 //                printf("while, row: %d, col: %d\n", row, col);
                 row = distrib(gen);
                 col = distrib(gen);
             }
-            sudoku.unset(row, col, sudoku.get(row, col));
+            sdk[i].unset(row, col, sdk[i].get(row, col));
         }
-        res.push_back(sudoku);
+        if(sol_num == EVERY_SOL){
+            std::vector<Sudoku> solutions = solve(sdk[i]);
+            if(!solutions.empty()) {
+                printf("generating... %dth.\n", i);
+                res.push_back(sdk[i]);
+                i++;
+            }
+        }
+        else{
+            std::vector<Sudoku> solutions = solve(sdk[i]);
+            if(solutions.size() == sol_num) {
+                printf("generating... %dth.\n", i);
+                res.push_back(sdk[i]);
+                i++;
+            }
+        }
+        res.push_back(sdk[i]);
     }
     return res;
 }
@@ -174,4 +186,39 @@ void printSudoku(Sudoku sdk) {
     }
     cout << endl;
 }
+
+int shift[10] = { 0, 6, 6, 5, 6, 6, 5, 6, 6, 8 };
+vector<Sudoku> fastGenerateSudokuFinal(int sdk_num){
+    vector<Sudoku> res;
+    std::vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9}; // 定义一个数组
+    int cnt = 0;
+    do {
+        vector<vector<int>> sdk_vec;
+        for (int i = 0; i < arr.size(); i++) {
+            std::rotate(arr.begin(), arr.begin() + shift[i], arr.end()); // 对向量进行循环移位
+            sdk_vec.push_back(arr);
+        }
+        std::rotate(arr.begin(), arr.begin() + shift[9], arr.end()); // 对向量进行循环移位
+
+        vector<int> f{0, 1, 2}, m{3, 4, 5}, e{6, 7, 8};
+        do {
+            do {
+                do {
+                    vector<int> concat;
+                    concat.insert(concat.begin(), e.begin(), e.end());
+                    concat.insert(concat.begin(), m.begin(), m.end());
+                    concat.insert(concat.begin(), f.begin(), f.end());
+                    std::vector<vector<int>> temp_vec(sdk_vec.size());
+                    for (int i = 0; i < sdk_vec.size(); i++) {
+                        temp_vec[i] = sdk_vec[concat[i]]; // 按照下标数组重新排列元素
+                    }
+                    Sudoku sdk(temp_vec);
+                    res.push_back(sdk);
+                } while (cnt++ < sdk_num && std::next_permutation(f.begin(), f.end()));
+            } while (cnt < sdk_num && std::next_permutation(m.begin(), m.end()));
+        } while (cnt < sdk_num && std::next_permutation(e.begin(), e.end()));
+    } while (cnt < sdk_num && std::next_permutation(arr.begin(), arr.end()));
+    return res;
+}
+
 

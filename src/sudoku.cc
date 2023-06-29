@@ -99,4 +99,12 @@ Sudoku::Sudoku(const Sudoku &sdk) {
 
 }
 
+Sudoku::Sudoku(const vector<vector<int>> &a) {
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+        {
+            set(i, j, a[i][j]);
+        }
+}
+
 
