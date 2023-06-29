@@ -62,10 +62,19 @@ void s_handler(const string& dir) {
 void n_handler(int n) {
     assert(n >= 1 && n < 10000);
     n_trigger = true;
+    auto sdks = generateSdk(n, SOL_NUM);
+    for (int j = 0; j < n; j++)
+    {
+        cout << j + 1 << "th sudoku puzzle output: "<< endl;
+        sdks[j].output();
+        cout << endl;
+    }
 }
 
 void m_handler(int m) {
     assert(m == 1 || m == 2 || m == 3);
+    assert(n_trigger);
+    DIFF = m;
 }
 
 void r_handler(int min, int max) {

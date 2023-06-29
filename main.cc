@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
 //    printf("\n");
 //  }
   c_handler(20);
+  n_handler(20);
   s_handler(R"(..\case2.txt)");
 //  for (auto i : s_final)
 //  {
