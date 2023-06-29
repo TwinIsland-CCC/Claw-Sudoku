@@ -15,4 +15,4 @@ add_executable(Claw_Sudoku
         src/sol.cc 
         src/sudoku.cc
         src/gen.cc
-        main.cc include/api.hpp src/api.cc)
+        main.cc include/api.hpp src/api.cc src/common.cc)

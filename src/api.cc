@@ -4,9 +4,6 @@
 
 #include "api.hpp"
 
-
-bool n_trigger = false;
-
 void c_handler(int c) {
     assert(c >= 1 && c <= 1000000);
     auto sdks = fastGenerateSudokuFinal(c);
@@ -60,9 +57,15 @@ void s_handler(const string& dir) {
 }
 
 void n_handler(int n) {
+    cout<<"start generate, num: " << n << endl;
     assert(n >= 1 && n < 10000);
     n_trigger = true;
-//    auto sdks = generateSdk(n, SOL_NUM);
+    cout<<"trigger: " << n_trigger << endl;
+}
+
+void generateStart(int n){
+    cout<<"start generate, num: " << n << endl;
+    //    auto sdks = generateSdk(n, SOL_NUM);
     auto sdks = fastGenerateSdk(n, SOL_NUM);
     for (int j = 0; j < n; j++)
     {
@@ -76,6 +79,21 @@ void m_handler(int m) {
     assert(m == 1 || m == 2 || m == 3);
     assert(n_trigger);
     DIFF = m;
+    switch (DIFF) {
+        case 1:
+            MIN_SPACE_NUM = 27, MAX_SPACE_NUM = 27;
+            break;
+        case 2:
+            MIN_SPACE_NUM = 42, MAX_SPACE_NUM = 42;
+            break;
+        case 3:
+            MIN_SPACE_NUM = 53, MAX_SPACE_NUM = 53;
+            break;
+        case 0:  // 0 代表生成模式
+            break;
+        default:
+            assert(0);
+    }
 }
 
 void r_handler(int min, int max) {
@@ -84,6 +102,7 @@ void r_handler(int min, int max) {
     assert(min <= max);
     assert(n_trigger);
     MIN_SPACE_NUM = min, MAX_SPACE_NUM = max;
+    cout<<"trigger: " << n_trigger << endl;
 }
 
 void u_handler() {

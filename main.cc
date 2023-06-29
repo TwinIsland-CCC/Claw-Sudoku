@@ -23,6 +23,8 @@ enum GAME_STATE
   GEN
 } game_state;
 
+extern bool n_trigger;
+
 int main(int argc, char **argv)
 {
 
@@ -39,7 +41,7 @@ int main(int argc, char **argv)
 //  auto s = generateSdk(1, -1);
 //  auto s_final = generateSdkFinal(1000);
 //  auto s_fast = fastGenerateSdk(100000);
-    auto s_final = fastGenerateSudokuFinal(1000000);
+//    auto s_final = fastGenerateSudokuFinal(1000000);
 //  printSudoku(s[0]);
 //  printf("solving...\n");
 //  std::vector<Sudoku> solutions = solve(s[0]);
@@ -60,12 +62,12 @@ int main(int argc, char **argv)
 //    s_final[i].output();
 //    printf("\n");
 //  }
-  ofstream fin("final.txt");
-  for (int i = 0; i < s_final.size(); i++){
-    fin << i << "th output: " << endl;
-    s_final[i].output(fin);
-    fin << endl;
-  }
+//  ofstream fin("final.txt");
+//  for (int i = 0; i < s_final.size(); i++){
+//    fin << i << "th output: " << endl;
+//    s_final[i].output(fin);
+//    fin << endl;
+//  }
 //  for (int i = 0; i < s_fast.size(); i++)
 //  {
 //    printf("%dth output: \n", i);
@@ -87,7 +89,7 @@ int main(int argc, char **argv)
   GAME_LEVEL game_difficulty;
   auto cli = ((required("-c").set(flags[C_IND]).set(game_state, FINAL) & value("final_count", int_params[C_IND])) |
               (required("-s").set(flags[S_IND]).set(game_state, SOLVE) & value("question_path", string_params[S_IND])) |
-              (required("-n").set(flags[N_IND]).set(game_state, FINAL) & value("game_count", int_params[N_IND]),
+              (required("-n").set(flags[N_IND]).set(game_state, GEN) & value("game_count", int_params[N_IND]),
                option("-m").set(flags[M_IND]) & value("game_difficulty", int_params[M_IND]),
                option("-r").set(flags[R_IND]) & value("<min>~<max>", string_params[R_IND]),
                option("-u").set(flags[U_IND])));
@@ -103,6 +105,7 @@ int main(int argc, char **argv)
       break;
     case GEN:
     {
+      n_handler(int_params[N_IND]);
       if (flags[M_IND])
       {
         m_handler(int_params[M_IND]);
@@ -111,13 +114,16 @@ int main(int argc, char **argv)
       {
         int r_min, r_max;
         sscanf(string_params[R_IND].c_str(), "%d~%d", &r_min, &r_max);
+        cout<<r_min<<" "<<r_max;
+          cout<<"trigger: " << n_trigger << endl;
         r_handler(r_min, r_max);
+          cout<<"trigger: " << n_trigger << endl;
       }
       if (flags[U_IND])
       {
         u_handler();
       }
-      n_handler(int_params[N_IND]);
+      if(n_trigger) generateStart(int_params[N_IND]);
     }
     break;
     default:

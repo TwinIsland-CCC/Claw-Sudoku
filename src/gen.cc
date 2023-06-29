@@ -33,7 +33,7 @@ vector<Sudoku> generateSdk(int sdk_num, int sol_num){
             Sudoku s = generateSudoku();
             std::vector<Sudoku> solutions = solve(s);
             if(solutions.size() == sol_num) {
-                printf("generating... %dth.\n", i);
+                printf("-generating... %dth.\n", i);
                 res.push_back(s);
                 i++;
             }
@@ -47,37 +47,42 @@ vector<Sudoku> fastGenerateSdk(int sdk_num, int sol_num) {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> distrib(0, SIZE - 1);
+    int min_space_num = MIN_SPACE_NUM, max_space_num = MAX_SPACE_NUM;
+    uniform_int_distribution<> space_distrib(min_space_num, max_space_num);
     auto sdk = fastGenerateSudokuFinal(sdk_num);
     auto sol = solve(sdk[0]);
     vector<Sudoku> res;
     for(int i = 0; i < sdk_num; i++){
-        for(int j = 0; j < SPACE_NUM; j++){
-            int row = distrib(gen);
-            int col = distrib(gen);
-            while (sdk[i].isEmpty(row, col)) {
+        int space_num = space_distrib(gen);
+        while(true){
+            Sudoku sudoku = sdk[i];
+            for(int j = 0; j < space_num; j++){
+                int row = distrib(gen);
+                int col = distrib(gen);
+                while (sudoku.isEmpty(row, col)) {
 //                printf("while, row: %d, col: %d\n", row, col);
-                row = distrib(gen);
-                col = distrib(gen);
+                    row = distrib(gen);
+                    col = distrib(gen);
+                }
+                sudoku.unset(row, col, sudoku.get(row, col));
             }
-            sdk[i].unset(row, col, sdk[i].get(row, col));
-        }
-        if(sol_num == EVERY_SOL){
-            std::vector<Sudoku> solutions = solve(sdk[i]);
-            if(!solutions.empty()) {
-                printf("generating... %dth.\n", i);
-                res.push_back(sdk[i]);
-                i++;
+            if(sol_num == EVERY_SOL){
+                std::vector<Sudoku> solutions = solve(sudoku);
+                if(!solutions.empty()) {
+                    printf("generating... %dth.\n", i);
+                    res.push_back(sudoku);
+                    break;
+                }
+            }
+            else{
+                std::vector<Sudoku> solutions = solve(sudoku);
+                if(solutions.size() == sol_num) {
+                    printf("-generating... %dth.\n", i);
+                    res.push_back(sudoku);
+                    break;
+                }
             }
         }
-        else{
-            std::vector<Sudoku> solutions = solve(sdk[i]);
-            if(solutions.size() == sol_num) {
-                printf("generating... %dth.\n", i);
-                res.push_back(sdk[i]);
-                i++;
-            }
-        }
-        res.push_back(sdk[i]);
     }
     return res;
 }
@@ -118,64 +123,6 @@ Sudoku generateSudoku() {
     }
     return sdk;
 }
-
-Sudoku generateSudokuInRange() {
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> distrib(0, SIZE - 1);
-    Sudoku sdk;
-    int count = 0;
-    while (count < NUM_NUM ) {
-        printf("count: %d\n", count);
-        int row = distrib(gen);
-        int col = distrib(gen);
-        if (sdk.isEmpty(row, col)) {
-            uniform_int_distribution<> num_distrib(1, SIZE);
-            int num = num_distrib(gen);
-            if(sdk.set(row, col, num)){
-                count++;
-            }
-            else continue;
-        }
-    }
-    return sdk;
-}
-
-bool check_set(unordered_set<int>& set){
-    for(int i = 1; i <= SIZE; ++i){
-        if(set.find(i) == set.end()) return false;
-    }
-    return true;
-}
-
-//Sudoku generateSudokuFinal(){
-//    random_device rd;
-//    mt19937 gen(rd());
-//    uniform_int_distribution<> distrib(1, SIZE);
-//    Sudoku sdk;
-//    for(int i = 0; i < SIZE; ++i){
-//        for (int j = 0; j < SIZE; ++j) {
-//            unordered_set<int> s;
-//            int num = distrib(gen);
-//            printf("i = %d, j = %d, num = %d\n", i, j, num);
-//            s.insert(num);
-//            while (!sdk.set(i, j, num)) {
-//                printf("i = %d, j = %d, num = %d\n", i, j, num);
-//                num = distrib(gen);
-//                s.insert(num);
-//                if (check_set(s)) {
-//                    if (j == 0) {
-//                        j = SIZE - 2;
-//                        i -= 1;
-//                    } else j -= 2;
-//                    sdk.unset(i, j, sdk.get(i, j));
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//    return sdk;
-//}
 
 void printSudoku(Sudoku sdk) {
     for (int i = 0; i < SIZE; i++) {

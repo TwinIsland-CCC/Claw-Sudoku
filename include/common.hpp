@@ -17,12 +17,14 @@ const int SIZE = 9;
 const int BLOCK_SIZE = 3;
 const int STATE_SIZE = 6;
 
-static int DIFF = 0;
-static int NUM_NUM = 25;
-static int SPACE_NUM = 26;
-static int MIN_SPACE_NUM = 20;
-static int MAX_SPACE_NUM = 55;
-static int SOLUTION_LIMIT = EVERY_LIMIT;
-static int SOL_NUM = EVERY_SOL;
+extern bool n_trigger;
+
+extern int DIFF;
+extern int NUM_NUM;
+extern int SPACE_NUM;
+extern int MIN_SPACE_NUM;
+extern int MAX_SPACE_NUM;
+extern int SOLUTION_LIMIT;
+extern int SOL_NUM;
 
 #endif

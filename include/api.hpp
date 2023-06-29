@@ -15,6 +15,7 @@ void n_handler(int n);
 void m_handler(int m);
 void r_handler(int min, int max);
 void u_handler();
+void generateStart(int n);
 
 
 #endif //CLAW_SUDOKU_API_HPP
