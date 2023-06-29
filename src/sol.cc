@@ -1,9 +1,10 @@
 #include "sol.hpp"
 
-std::vector<Sudoku> solve(const Sudoku& s)
+std::vector<Sudoku> solve(const Sudoku &s)
 {
     std::vector<Sudoku> solutions;
-    cursiveSearch(s, 0, 0, solutions);
+    if (s.getIsLegal())
+        cursiveSearch(s, 0, 0, solutions);
     return solutions;
 }
 /*
@@ -16,7 +17,7 @@ void cursiveSearch(Sudoku s, int r, int c, std::vector<Sudoku> &solutions)
         return;
     if (r > 8)
     {
-        //s.output();
+        // s.output();
         solutions.push_back(s);
         return;
     } // reach row 9th means a correct solution

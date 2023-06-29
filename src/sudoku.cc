@@ -20,16 +20,20 @@ bool Sudoku::set(int r, int c, int val)
     }
 }
 
-Sudoku::Sudoku() {
-
+Sudoku::Sudoku()
+{
 }
 
 Sudoku::Sudoku(int a[9][9])
 {
+
     for (int i = 0; i < 9; i++)
         for (int j = 0; j < 9; j++)
         {
-            set(i, j, a[i][j]);
+            if (!set(i, j, a[i][j]))
+            {
+                isLegal = false;
+            }
         }
 }
 
@@ -59,7 +63,7 @@ void Sudoku::output()
     }
 }
 
-void Sudoku::output(std::ofstream& out)
+void Sudoku::output(std::ofstream &out)
 {
     for (int i = 0; i < 9; i++)
     {
@@ -71,32 +75,39 @@ void Sudoku::output(std::ofstream& out)
     }
 }
 
-int Sudoku::get(int r, int c) {
+int Sudoku::get(int r, int c)
+{
     return item[r][c];
 }
 
-Sudoku::Sudoku(const Sudoku &sdk) {
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 9; j++){
+Sudoku::Sudoku(const Sudoku &sdk)
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
             item[i][j] = sdk.item[i][j];
         }
     }
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 19; j++){
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 19; j++)
+        {
             row[i][j] = sdk.row[i][j];
         }
     }
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 10; j++){
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
             col[i][j] = sdk.col[i][j];
         }
     }
-    for(int i = 0; i < 9; i++){
-        for(int j = 0; j < 10; j++){
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
             sqr[i][j] = sdk.sqr[i][j];
         }
     }
-
 }
-
-
