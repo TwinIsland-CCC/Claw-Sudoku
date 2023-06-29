@@ -12,6 +12,8 @@ If find a legal solution, push it into the vector.
 */
 void cursiveSearch(Sudoku s, int r, int c, std::vector<Sudoku> &solutions)
 {
+    if (solutions.size() > 10)
+        return;
     if (r > 8)
     {
         //s.output();
