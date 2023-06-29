@@ -2,8 +2,7 @@
 #include "gen.hpp"
 #include "sudoku.hpp"
 
-int main(void)
-
+int main(int argc, char* argv[])
 {
 //  int a[9][9];
 //  printf("please input your sudoku\n");
@@ -15,20 +14,28 @@ int main(void)
 //    }
 //  Sudoku s(a);
 //  Sudoku s = generateSudokuFinal();
-  auto s = generateSdk(1, 1);
+  auto s = generateSdk(1, -1);
   auto s_final = generateSdkFinal(1000);
-  printSudoku(s[0]);
+  auto s_fast = fastGenerateSdk(100000);
+//  printSudoku(s[0]);
   printf("solving...\n");
+//  std::vector<Sudoku> solutions = solve(s[0]);
   std::vector<Sudoku> solutions = solve(s[0]);
   printf("Done\n");
   int index = 0;
-  for (auto i : solutions)
-  {
-    printf("%dth output: \n", index++);
-    i.output();
-    printf("\n");
-  }
-  for (auto i : s_final)
+//  for (auto i : solutions)
+//  {
+//    printf("%dth output: \n", index++);
+//    i.output();
+//    printf("\n");
+//  }
+//  for (auto i : s_final)
+//  {
+//    printf("%dth output: \n", index++);
+//    i.output();
+//    printf("\n");
+//  }
+  for (auto i : s_fast)
   {
     printf("%dth output: \n", index++);
     i.output();

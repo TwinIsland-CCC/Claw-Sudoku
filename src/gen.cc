@@ -3,14 +3,55 @@
 vector<Sudoku> generateSdk(int sdk_num, int sol_num){
     vector<Sudoku> res;
     int i = 0;
-    while(i < sdk_num) {
-        Sudoku s = generateSudoku();
-        std::vector<Sudoku> solutions = solve(s);
-        if(solutions.size() == sol_num) {
-            printf("generating... %dth.\n", i);
-            res.push_back(s);
-            i++;
+    if(sol_num == EVERY_SOL){
+        while(i < sdk_num) {
+            Sudoku s = generateSudoku();
+            std::vector<Sudoku> solutions = solve(s);
+            if(!solutions.empty()) {
+                printf("generating... %dth.\n", i);
+                res.push_back(s);
+                i++;
+            }
         }
+    }
+    else{
+        while(i < sdk_num) {
+            Sudoku s = generateSudoku();
+            std::vector<Sudoku> solutions = solve(s);
+            if(solutions.size() == sol_num) {
+                printf("generating... %dth.\n", i);
+                res.push_back(s);
+                i++;
+            }
+        }
+    }
+    return res;
+}
+
+//根据答案挖空
+vector<Sudoku> fastGenerateSdk(int sdk_num){
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> distrib(0, SIZE - 1);
+    auto sdk = generateSdk(1, 1);
+    auto sol = solve(sdk[0]);
+    vector<Sudoku> res;
+    for(int i = 0; i < sdk_num; i++){
+        Sudoku sudoku = sol[0];
+//        printSudoku(sol[0]);
+//        printf("\n");
+//        printSudoku(sudoku);
+        for(int j = 0; j < SPACE_NUM; j++){
+            int row = distrib(gen);
+            int col = distrib(gen);
+            while (sudoku.isEmpty(row, col)) {
+//                printf("while, row: %d, col: %d\n", row, col);
+                row = distrib(gen);
+                col = distrib(gen);
+            }
+            sudoku.unset(row, col, sudoku.get(row, col));
+        }
+        res.push_back(sudoku);
     }
     return res;
 }
@@ -36,7 +77,7 @@ Sudoku generateSudoku() {
     uniform_int_distribution<> distrib(0, SIZE - 1);
     Sudoku sdk;
     int count = 0;
-    while (count < DIFF) {
+    while (count < 25) {
 //        printf("count: %d\n", count);
         int row = distrib(gen);
         int col = distrib(gen);
@@ -57,7 +98,7 @@ Sudoku generateSudoku(Sudoku& sdk) {
     mt19937 gen(rd());
     uniform_int_distribution<> distrib(0, SIZE - 1);
     int count = 0;
-    while (count < DIFF) {
+    while (count < SPACE_NUM) {
         printf("count: %d\n", count);
         int row = distrib(gen);
         int col = distrib(gen);

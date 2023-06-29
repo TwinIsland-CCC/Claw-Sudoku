@@ -63,4 +63,28 @@ int Sudoku::get(int r, int c) {
     return item[r][c];
 }
 
+Sudoku::Sudoku(const Sudoku &sdk) {
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            item[i][j] = sdk.item[i][j];
+        }
+    }
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 19; j++){
+            row[i][j] = sdk.row[i][j];
+        }
+    }
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 10; j++){
+            col[i][j] = sdk.col[i][j];
+        }
+    }
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 10; j++){
+            sqr[i][j] = sdk.sqr[i][j];
+        }
+    }
+
+}
+
 
