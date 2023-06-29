@@ -19,6 +19,7 @@ public:
     Sudoku &unset(int r, int c, int val);
     bool isEmpty(int r, int c);
     void output();
+    void output(ofstream& out);
 };
 
 #endif

@@ -3,6 +3,20 @@
 vector<Sudoku> generateSdk(int sdk_num, int sol_num){
     vector<Sudoku> res;
     int i = 0;
+    switch (DIFF) {
+        case 0:  // 0 代表生成模式
+            SPACE_NUM = 17;
+        case 2:
+            SPACE_NUM = 42;
+            break;
+        case 3:
+            SPACE_NUM = 54;
+            break;
+        case 1:
+        default:
+            SPACE_NUM = 27;
+            break;
+    }
     if(sol_num == EVERY_SOL){
         while(i < sdk_num) {
             Sudoku s = generateSudoku();
@@ -77,7 +91,7 @@ Sudoku generateSudoku() {
     uniform_int_distribution<> distrib(0, SIZE - 1);
     Sudoku sdk;
     int count = 0;
-    while (count < 25) {
+    while (count < NUM_NUM) {
 //        printf("count: %d\n", count);
         int row = distrib(gen);
         int col = distrib(gen);
@@ -93,12 +107,13 @@ Sudoku generateSudoku() {
     return sdk;
 }
 
-Sudoku generateSudoku(Sudoku& sdk) {
+Sudoku generateSudokuInRange() {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> distrib(0, SIZE - 1);
+    Sudoku sdk;
     int count = 0;
-    while (count < SPACE_NUM) {
+    while (count < NUM_NUM ) {
         printf("count: %d\n", count);
         int row = distrib(gen);
         int col = distrib(gen);

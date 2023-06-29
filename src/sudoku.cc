@@ -59,6 +59,18 @@ void Sudoku::output()
     }
 }
 
+void Sudoku::output(std::ofstream& out)
+{
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            out << item[i][j];
+        }
+        out << std::endl;
+    }
+}
+
 int Sudoku::get(int r, int c) {
     return item[r][c];
 }

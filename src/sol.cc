@@ -1,6 +1,6 @@
 #include "sol.hpp"
 
-std::vector<Sudoku> solve(Sudoku s)
+std::vector<Sudoku> solve(const Sudoku& s)
 {
     std::vector<Sudoku> solutions;
     cursiveSearch(s, 0, 0, solutions);
@@ -12,7 +12,7 @@ If find a legal solution, push it into the vector.
 */
 void cursiveSearch(Sudoku s, int r, int c, std::vector<Sudoku> &solutions)
 {
-    if (solutions.size() > 10)
+    if (SOLUTION_LIMIT != EVERY_LIMIT && solutions.size() > SOLUTION_LIMIT)
         return;
     if (r > 8)
     {
