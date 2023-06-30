@@ -2,12 +2,15 @@
 
 bool Sudoku::set(int r, int c, int val)
 {
+    if (val == 0)
+        return true;
     if (
         !(
             col[c][val] ||
             row[r][val] ||
             sqr[c / 3 + (r / 3) * 3][val])) // this position is legal
     {
+
         col[c][val] = true;
         row[r][val] = true;
         sqr[c / 3 + (r / 3) * 3][val] = true;
@@ -32,6 +35,28 @@ Sudoku::Sudoku(int a[9][9])
         {
             if (!set(i, j, a[i][j]))
             {
+                int val = a[i][j];
+                item[i][j] = a[i][j];
+                col[j][val] = true;
+                row[i][val] = true;
+                sqr[j / 3 + (i / 3) * 3][val] = true;
+                isLegal = false;
+            }
+        }
+}
+
+Sudoku::Sudoku(const vector<vector<int>> &a)
+{
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+        {
+            if (!set(i, j, a[i][j]))
+            {
+                int val = a[i][j];
+                item[i][j] = a[i][j];
+                col[j][val] = true;
+                row[i][val] = true;
+                sqr[j / 3 + (i / 3) * 3][val] = true;
                 isLegal = false;
             }
         }
@@ -110,13 +135,5 @@ Sudoku::Sudoku(const Sudoku &sdk)
             sqr[i][j] = sdk.sqr[i][j];
         }
     }
-}
-
-Sudoku::Sudoku(const vector<vector<int>> &a)
-{
-    for (int i = 0; i < 9; i++)
-        for (int j = 0; j < 9; j++)
-        {
-            set(i, j, a[i][j]);
-        }
+    isLegal = sdk.isLegal;
 }

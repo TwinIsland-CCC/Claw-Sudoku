@@ -60,7 +60,6 @@ void s_handler(const string &dir)
             cerr << e.what() << endl;
         }
     }
-
     for (int i = 0; i < sdks.size(); ++i)
     {
         sdks[i].output();

@@ -3,9 +3,10 @@
 std::vector<Sudoku> solve(const Sudoku &s)
 {
     std::vector<Sudoku> solutions;
-    printf("islegal:%d\n", s.getIsLegal());
     if (s.getIsLegal())
         cursiveSearch(s, 0, 0, solutions);
+    else
+        printf("Ilegal Sudoku\n");
     return solutions;
 }
 /*
