@@ -82,7 +82,7 @@ void s_handler(const string &dir)
 void n_handler(int n)
 {
     cout << "start generate, num: " << n << endl;
-    assert(n >= 1 && n < 10000);
+    assert(n >= 1 && n <= 10000);
     n_trigger = true;
     cout << "trigger: " << n_trigger << endl;
 }

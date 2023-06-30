@@ -23,6 +23,7 @@ public:
   void output();
   void output(ofstream &out);
   bool getIsLegal() const { return isLegal; }
+  bool isSolution() const;
 };
 
 #endif

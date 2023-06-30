@@ -201,5 +201,6 @@ vector<Sudoku> fastGenerateSudokuFinal(int sdk_num)
             } while (cnt < sdk_num && std::next_permutation(m.begin(), m.end()));
         } while (cnt < sdk_num && std::next_permutation(e.begin(), e.end()));
     } while (cnt < sdk_num && std::next_permutation(arr.begin(), arr.end()));
+    res.resize(sdk_num);
     return res;
 }

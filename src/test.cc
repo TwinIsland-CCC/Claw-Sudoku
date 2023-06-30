@@ -3,6 +3,16 @@
 #include "gen.hpp"
 #include "sol.hpp"
 
+TEST(GenTest, finalLegalTest){
+    auto sdks = fastGenerateSudokuFinal(1);
+    EXPECT_TRUE(sdks[0].getIsLegal());
+}
+
+TEST(GenTest, finalNumTest){
+    auto sdks = fastGenerateSudokuFinal(10000);
+    EXPECT_TRUE(sdks.size() == 10000);
+}
+
 TEST(GenTest, legalTest){
     auto sdks = fastGenerateSdk(1, EVERY_SOL);
     EXPECT_TRUE(sdks[0].getIsLegal());
@@ -21,6 +31,29 @@ TEST(GenTest, genSolEveryTest){
     }
 }
 
+TEST(GenTest, genSpaceRangeTest){
+    MIN_SPACE_NUM = 17, MAX_SPACE_NUM = 37;
+    auto sdks = fastGenerateSdk(1, EVERY_SOL);
+    int space_cnt = 0;
+    for(int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; ++j) {
+            if(sdks[0].get(i, j) == 0) space_cnt++;
+        }
+    }
+    EXPECT_TRUE(space_cnt >= MIN_SPACE_NUM && space_cnt <= MAX_SPACE_NUM);
+}
+
+TEST(GenTest, genSpaceTest){
+    MIN_SPACE_NUM = MAX_SPACE_NUM = 17;
+    auto sdks = fastGenerateSdk(1, EVERY_SOL);
+    int space_cnt = 0;
+    for(int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; ++j) {
+            if(sdks[0].get(i, j) == 0) space_cnt++;
+        }
+    }
+    EXPECT_TRUE(space_cnt == MIN_SPACE_NUM && space_cnt == MAX_SPACE_NUM);
+}
 
 TEST(GenTest, genSol1Test){
     auto sdks = fastGenerateSdk(10, 1);
@@ -74,6 +107,71 @@ TEST(GenTest, printTest){
     cout.rdbuf(old_cout_rd);
     cerr.rdbuf(old_cerr_rd);
     EXPECT_EQ(out.str(), ss.str());
+}
+
+TEST(SolveTest, singleTest)
+{
+    int a[9][9] = {
+            {0, 0, 9, 7, 4, 8, 0, 0, 0},
+            {7, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 2, 0, 1, 0, 9, 0, 0, 0},
+            {0, 0, 7, 0, 0, 0, 2, 4, 0},
+            {0, 6, 4, 0, 1, 0, 5, 9, 0},
+            {0, 9, 8, 0, 0, 0, 3, 0, 0},
+            {0, 0, 0, 8, 0, 3, 0, 2, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 6},
+            {0, 0, 0, 2, 7, 5, 9, 0, 0}};
+    Sudoku s(a);
+
+    vector<Sudoku> solutions = solve(s);
+    EXPECT_TRUE(solutions.size() == 1);
+    for (auto i : solutions)
+    {
+        EXPECT_TRUE(i.isSolution());
+    }
+}
+
+TEST(SolveTest, multiTest)
+{
+    int a[9][9] = {
+            {0, 0, 1, 8, 0, 0, 4, 2, 7},
+            {0, 0, 0, 3, 0, 7, 0, 0, 0},
+            {0, 6, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 2, 7, 8},
+            {0, 0, 6, 0, 8, 0, 0, 0, 0},
+            {0, 0, 7, 0, 0, 9, 0, 3, 1},
+            {0, 0, 0, 0, 0, 0, 1, 0, 5},
+            {0, 3, 9, 1, 0, 0, 0, 0, 0},
+            {0, 5, 0, 0, 4, 0, 7, 0, 0}};
+    Sudoku s(a);
+
+    vector<Sudoku> solutions = solve(s);
+    EXPECT_TRUE(solutions.size() > 1);
+    for (auto i : solutions)
+    {
+        EXPECT_TRUE(i.isSolution());
+    }
+}
+
+TEST(SolveTest, depthTest)
+{
+    int a[9][9] = {0};
+    Sudoku s(a);
+
+    vector<Sudoku> solutions = solve(s);
+    EXPECT_TRUE(solutions.size() <= 10);
+    for (auto i : solutions)
+    {
+        EXPECT_TRUE(i.isSolution());
+    }
+}
+
+TEST(SolveTest, ilegalTest)
+{
+    int a[9][9] = {{1, 1}};
+    Sudoku s(a);
+    vector<Sudoku> solutions = solve(s);
+    EXPECT_EQ(solutions.size(), 0);
 }
 
 
@@ -160,10 +258,14 @@ TEST(apiTest, mTest0){
 TEST(apiTest, mTest1){
     n_handler(1);
     EXPECT_EQ(DIFF, 0);
+    EXPECT_EQ(MIN_SPACE_NUM, 17);
+    EXPECT_EQ(MAX_SPACE_NUM, 17);
     m_handler(1);
     EXPECT_EQ(DIFF, 1);
     EXPECT_EQ(MIN_SPACE_NUM, 27);
     EXPECT_EQ(MAX_SPACE_NUM, 27);
+    MIN_SPACE_NUM = 17;
+    MAX_SPACE_NUM = 17;
     DIFF = 0;
     n_trigger = false;
 }
@@ -171,10 +273,14 @@ TEST(apiTest, mTest1){
 TEST(apiTest, mTest2){
     n_handler(1);
     EXPECT_EQ(DIFF, 0);
+    EXPECT_EQ(MIN_SPACE_NUM, 17);
+    EXPECT_EQ(MAX_SPACE_NUM, 17);
     m_handler(2);
     EXPECT_EQ(DIFF, 2);
     EXPECT_EQ(MIN_SPACE_NUM, 42);
     EXPECT_EQ(MAX_SPACE_NUM, 42);
+    MIN_SPACE_NUM = 17;
+    MAX_SPACE_NUM = 17;
     DIFF = 0;
     n_trigger = false;
 }
@@ -182,10 +288,14 @@ TEST(apiTest, mTest2){
 TEST(apiTest, mTest3){
     n_handler(1);
     EXPECT_EQ(DIFF, 0);
+    EXPECT_EQ(MIN_SPACE_NUM, 17);
+    EXPECT_EQ(MAX_SPACE_NUM, 17);
     m_handler(3);
     EXPECT_EQ(DIFF, 3);
     EXPECT_EQ(MIN_SPACE_NUM, 53);
     EXPECT_EQ(MAX_SPACE_NUM, 53);
+    MIN_SPACE_NUM = 17;
+    MAX_SPACE_NUM = 17;
     DIFF = 0;
     n_trigger = false;
 }
@@ -193,21 +303,28 @@ TEST(apiTest, mTest3){
 TEST(apiTest, mTestOther){
     n_handler(1);
     EXPECT_EQ(DIFF, 0);
+    EXPECT_EQ(MIN_SPACE_NUM, 17);
+    EXPECT_EQ(MAX_SPACE_NUM, 17);
+    ASSERT_DEATH(m_handler(0), "");
     ASSERT_DEATH(m_handler(4), "");
     DIFF = 0;
     n_trigger = false;
 }
-
 TEST(apiTest, rTestN){
     n_handler(10);
+    EXPECT_EQ(MIN_SPACE_NUM, 17);
+    EXPECT_EQ(MAX_SPACE_NUM, 17);
     r_handler(30, 40);
     EXPECT_EQ(MIN_SPACE_NUM, 30);
     EXPECT_EQ(MAX_SPACE_NUM, 40);
+    MIN_SPACE_NUM = 17;
+    MAX_SPACE_NUM = 17;
     n_trigger = false;
 }
 
 TEST(apiTest, uTestN){
     n_handler(10);
+    EXPECT_EQ(SOL_NUM, EVERY_SOL);
     u_handler();
     EXPECT_EQ(SOL_NUM, 1);
     n_trigger = false;
