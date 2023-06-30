@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cassert>
 #include <string>
+#include <algorithm>
 
 #define EVERY_SOL -1
 #define EVERY_LIMIT -1

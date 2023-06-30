@@ -10,12 +10,11 @@
 #include "sol.hpp"
 
 void c_handler(int c);
-void s_handler(const string& s);
+void s_handler(const string &s);
 void n_handler(int n);
 void m_handler(int m);
 void r_handler(int min, int max);
 void u_handler();
 void generateStart(int n);
 
-
-#endif //CLAW_SUDOKU_API_HPP
+#endif // CLAW_SUDOKU_API_HPP
