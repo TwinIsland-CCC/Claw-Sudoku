@@ -9,6 +9,13 @@
 
 报告内容包括简单的代码介绍，单元测试部分，简单用户手册，质量分析截图和测试覆盖率截图。下面将开始报告的主体部分。
 
+## 分工
+
+- 卻铭恺：完成生成器、前后端耦合API、全局变量、宏定义的相关代码，完成生成器、前后端耦合API的测试代码，编写测试样例，统计覆盖率并编写对应报告；
+- 刘宇航：完成参数转换、求解器、数独类和方法、主函数的相关代码，完成求解器的测试代码，对代码进行质量分析，编写对应测试样例，并编写对应报告。
+
+
+
 ## 简易代码介绍
 
 我们代码的目录结构如下：
@@ -597,7 +604,7 @@ TEST(apiTest, uTestN){
 
 我们使用cppcheck对代码进行静态分析，最终的分析结果如下：
 
-![image-20230630091730190](image-20230630091730190.png)
+<img src="image-20230630091730190.png" alt="image-20230630091730190" style="zoom:67%;" />
 
 质量分析全部通过，保证了我们代码编写的简洁易用性，并排除了潜在问题。
 
@@ -618,30 +625,41 @@ TEST(apiTest, uTestN){
 
 ### 运行示例
 终局生成：对于大数据量(1e6)，测试了性能和IO正确性
-![final-1e6](final-1e6.png)
+<img src="final-1e6.png" alt="final-1e6" style="zoom:67%;" />
 ![final-cli](final-cli.png)
 
 问题求解：测试了不同难度等级的数独，检测最高难度下求解的性能，由于算法的剪枝策略不完善，同时数据结构性能较低，算法整体性能不佳，可能的优化策略为转用Dancing Link 算法求解。
-![solve-ques](solve-ques.png)
+
+<img src="solve-ques.png" alt="solve-ques" style="zoom:50%;" />
+
 ![solve-time](solve-time.png)
-![solve](solve.png)
 
+<img src="solve.png" alt="solve" style="zoom:50%;" />
 
-题目生成：> ![gen-using-case](gen-using-case.png)
+题目生成：
+<img src="gen-using-case.png" alt="gen-using-case" style="zoom:50%;" />
+
 可以通过输出重定向生成文件> 
+
 ![gen-redirect](gen-redirect.png)
-![gen-file](gen-file.png)
+
+<img src="gen-file.png" alt="gen-file" style="zoom:50%;" />
 
 命令行子参数
 
-![nmtest](nmtest.png)
-![nrtest](nrtest.png)
-![nutest](nutest.png)
+<img src="nmtest.png" alt="nmtest" style="zoom:50%;" />
+
+<img src="nrtest.png" alt="nrtest" style="zoom:50%;" />
+
+<img src="nutest.png" alt="nutest" style="zoom:50%;" />
+
 对于子参数的复合，程序能够正确处理并生成结果。
-![complex](complex.png)
+
+<img src="complex.png" alt="complex" style="zoom:50%;" />
 
 对于手册内互斥的运行模式参数，会报错并显示man页面
 ![conflict](conflict.png)
+
 ### 注意事项
 
 程序实现与测试中，我们为其约定了一些不可完成的任务。为了避开这些任务，并且避开一些意想不到的错误，我们提出一些输入约束与注意事项如下：
