@@ -25,9 +25,10 @@ void s_handler(const string &dir)
         std::cerr << "Failed to open file." << std::endl;
         return;
     }
-
+    int cnt = 0;
     vector<Sudoku> sdks;
-
+    char ch;
+    sdk_file >> ch;
     while (!sdk_file.eof())
     { // 现在的写法中文件尾不能有回车
         int a[9][9];
@@ -36,7 +37,20 @@ void s_handler(const string &dir)
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
                 {
-                    sdk_file >> a[i][j];
+                    if (sdk_file.eof())
+                        throw invalid_argument("Incomplete input");
+                    if (ch == '$')
+                        ch = '0';
+                    if (ch >= '0' && ch <= '9')
+                    {
+                        a[i][j] = ch - '0';
+                    }
+                    else
+                    {
+                        sdk_file >> ch;
+                        throw invalid_argument("Invalid character");
+                    }
+                    sdk_file >> ch;
                 }
             Sudoku s(a);
             sdks.push_back(s);
