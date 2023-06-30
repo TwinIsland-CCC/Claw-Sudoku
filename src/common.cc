@@ -2,7 +2,6 @@
 // Created by CCC on 2023/6/30.
 //
 
-
 #include "common.hpp"
 
 bool n_trigger = false;

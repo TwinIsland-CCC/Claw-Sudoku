@@ -91,7 +91,7 @@ Sudoku::Sudoku(const Sudoku &sdk)
     }
     for (int i = 0; i < 9; i++)
     {
-        for (int j = 0; j < 19; j++)
+        for (int j = 0; j < 10; j++)
         {
             row[i][j] = sdk.row[i][j];
         }
@@ -112,11 +112,11 @@ Sudoku::Sudoku(const Sudoku &sdk)
     }
 }
 
-Sudoku::Sudoku(const vector<vector<int>> &a) {
+Sudoku::Sudoku(const vector<vector<int>> &a)
+{
     for (int i = 0; i < 9; i++)
         for (int j = 0; j < 9; j++)
         {
             set(i, j, a[i][j]);
         }
 }
-

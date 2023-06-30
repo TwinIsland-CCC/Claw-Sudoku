@@ -10,7 +10,7 @@
 vector<Sudoku> generateSdk(int sdk_num, int sol_num);
 vector<Sudoku> fastGenerateSdk(int sdk_num, int sol_num);
 Sudoku generateSudoku();
-Sudoku generateSudoku(Sudoku& sdk);
+Sudoku generateSudoku(Sudoku &sdk);
 vector<Sudoku> generateSdkFinal(int sdk_num);
 vector<Sudoku> fastGenerateSudokuFinal(int sdk_num);
 void printSudoku(Sudoku sdk);
