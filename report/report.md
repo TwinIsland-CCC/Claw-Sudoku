@@ -23,17 +23,15 @@
   - clipp.h     （参数转换工具）
   - common.hpp  （必备的全局变量声明、宏定义和头文件）
   - gen.hpp     （生成数独相关函数）
-  - parse.hpp   （参数处理相关函数）
   - sol.hpp     （数独求解相关函数）
   - sudoku.hpp  （数独类及方法声明）
-- main.cc       （程序入口点）
+- main.cc       （程序入口点， 参数处理相关函数）
 - Makefile
 - README.md
 + src (dir)
   - api.cc
   - common.cc
   - gen.cc
-  - parse.cc
   - sol.cc
   - sudoku.cc
 - test
