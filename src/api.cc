@@ -116,10 +116,6 @@ void m_handler(int m)
     case 3:
         MIN_SPACE_NUM = 53, MAX_SPACE_NUM = 53;
         break;
-    case 0: // 0 代表生成模式
-        break;
-    default:
-        assert(0);
     }
 }
 
