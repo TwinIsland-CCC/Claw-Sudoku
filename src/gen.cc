@@ -8,6 +8,7 @@ vector<Sudoku> generateSdk(int sdk_num, int sol_num)
     {
     case 0: // 0 代表生成模式
         SPACE_NUM = 17;
+        break;
     case 2:
         SPACE_NUM = 42;
         break;
