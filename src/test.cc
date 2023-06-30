@@ -43,6 +43,40 @@ TEST(GenTest, diffTest){
     EXPECT_TRUE(different);
 }
 
+TEST(GenTest, printTest){
+    stringstream out;
+    streambuf* old_cout_rd = cout.rdbuf();
+    streambuf* old_cerr_rd = cerr.rdbuf();
+    cout.rdbuf(out.rdbuf());
+    cerr.rdbuf(out.rdbuf());
+
+    int arr[9][9] = {
+            {0, 0, 1, 8, 0, 0, 4, 2, 7},
+            {0, 0, 0, 3, 0, 7, 0, 0, 0},
+            {0, 6, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 2, 7, 8},
+            {0, 0, 6, 0, 8, 0, 0, 0, 0},
+            {0, 0, 7, 0, 0, 9, 0, 3, 1},
+            {0, 0, 0, 0, 0, 0, 1, 0, 5},
+            {0, 3, 9, 1, 0, 0, 0, 0, 0},
+            {0, 5, 0, 0, 4, 0, 7, 0, 0}};
+    Sudoku sdk(arr);
+    printSudoku(sdk);
+
+    string s;
+    stringstream ss(s);
+    for (auto & i : arr){
+        for (int j : i)
+            ss << j << " ";
+        ss << endl;
+    }
+    ss << endl;
+    cout.rdbuf(old_cout_rd);
+    cerr.rdbuf(old_cerr_rd);
+    EXPECT_EQ(out.str(), ss.str());
+}
+
+
 TEST(apiTest, cTest){
     ASSERT_DEATH(c_handler(-1), "");
     ASSERT_DEATH(c_handler(5000001), "");
